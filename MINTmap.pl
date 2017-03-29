@@ -42,17 +42,17 @@ This is a required argument. The file “trimmedfastqfile” contains the sequen
 -p outputprefix
 If not specified, “outputprefix” will be set to '$DEFAULT_OUTPREFIX' and all output files will be generated in the current working directory. The “outputprefix” is a string that will be prepended in the output files that MINTmap will generate. The string is meant to serve as a mnemonic for the user.
 
--l lookuptable 
-Unless specified by the user, this argument will be set automatically to '$DEFAULT_LOOKUPTABLE'.  The “lookuptable” is the name of the file containing all possible tRFs of lengths 16-50 nt for the tRNA space currently in use. Every tRF sequence listed in this file is associated with a “Y”(es) or “N”(o) value that is the answer to the question “is the tRF sequence present in tRNA space exclusively?” The first two lines of the lookup table should include file-level md5 checksum values for the files that are specified with the –s and –o flags to ensure that concordant files are used. 
+-l lookuptable
+Unless specified by the user, this argument will be set automatically to '$DEFAULT_LOOKUPTABLE'.  The “lookuptable” is the name of the file containing all possible tRFs of lengths 16-50 nt for the tRNA space currently in use. Every tRF sequence listed in this file is associated with a “Y”(es) or “N”(o) value that is the answer to the question “is the tRF sequence present in tRNA space exclusively?” The first two lines of the lookup table should include file-level md5 checksum values for the files that are specified with the –s and –o flags to ensure that concordant files are used.
 
 -s tRNAsequences
-Unless specified by the user, this argument will be set to '$DEFAULT_TRNASPLICEDSEQUENCES'.  The “tRNAsequences” is the name of the file that contains the sequences that comprise the true tRNA space and can serve as potential source(s) of tRFs. Only spliced tRNA sequences with no post-transcriptional modifications should be included in this file. The string used to label each sequence in this file should be unique and, ideally, should contain the tRNA name and tRNA-locus coordinates that will be used in the output of MINTmap. 
+Unless specified by the user, this argument will be set to '$DEFAULT_TRNASPLICEDSEQUENCES'.  The “tRNAsequences” is the name of the file that contains the sequences that comprise the true tRNA space and can serve as potential source(s) of tRFs. Only spliced tRNA sequences with no post-transcriptional modifications should be included in this file. The string used to label each sequence in this file should be unique and, ideally, should contain the tRNA name and tRNA-locus coordinates that will be used in the output of MINTmap.
 
 -o tRFtypes
-This is an optional argument. Unless specified, this argument will be set automatically to '$DEFAULT_OTHERANNOTATIONS'.  If the user specifies a file that does not exist, the structural type column in the output files will be set to 'na' (Not Applicable).  The “tRFtypes” is the filename for the file that contains the lookup table which associated for tRFs with their structural type. This file contains two columns separated by a ‘tab.’ The first column lists the sequences of a tRF. The second column list the structural type for that tRF sequence. If a tRF can have multiple structural types (because it appears at different locations in different isodecoders), the second column will list all structural types, separated by commas. 
+This is an optional argument. Unless specified, this argument will be set automatically to '$DEFAULT_OTHERANNOTATIONS'.  If the user specifies a file that does not exist, the structural type column in the output files will be set to 'na' (Not Applicable).  The “tRFtypes” is the filename for the file that contains the lookup table which associated for tRFs with their structural type. This file contains two columns separated by a ‘tab.’ The first column lists the sequences of a tRF. The second column list the structural type for that tRF sequence. If a tRF can have multiple structural types (because it appears at different locations in different isodecoders), the second column will list all structural types, separated by commas.
 
 -d customRPM
-This is an optional argument. The value “customRPM” is meant to be used as alternative denominator when computing the RPM abundance of a tRF. When this parameter is defined by the user, an additional column in the output files will be populated with RPM values that have been calculated using this value in the denominator – i.e. these values will be equal to raw reads/<customRPM>*1,000,000. A common value to use here is the original number of sequenced reads prior to quality- and adaptor-trimming. 
+This is an optional argument. The value “customRPM” is meant to be used as alternative denominator when computing the RPM abundance of a tRF. When this parameter is defined by the user, an additional column in the output files will be populated with RPM values that have been calculated using this value in the denominator – i.e. these values will be equal to raw reads/<customRPM>*1,000,000. A common value to use here is the original number of sequenced reads prior to quality- and adaptor-trimming.
 
 -a assembly
 Unless specified, this argument is automatically set to '$ASSEMBLY_MINTBASE'. The value of “assembly” refers to the genome assembly version used. The standard notation (e.g. “$ASSEMBLY_MINTBASE”) is expected. This value is listed in the HTML output files in the table headers and is also part of the hyperlink to the MINTbase record of a tRF.
@@ -62,7 +62,7 @@ Unless specified, this argument is automatically set to '$PATH_MINTPLATES'.  The
 
 -z Don't add any post-modifications when searching the tRNA annotations file (rarely needed)
 
--h 
+-h
 This is an optional argument that shows the user a list of the various parameters.
 
 OUTPUT:
@@ -167,7 +167,7 @@ sub loadLookupTable
    open my $ifh, "<$opt{l}" or die $!;
 
    # get md5sum of tRNA sequences from first line in lookup table.  If it doesn't match, report an error and exit
-   my $md5check = <$ifh>; 
+   my $md5check = <$ifh>;
    chomp $md5check;
    $md5check =~ s/^.*MD5SUM://;
    if ($md5check ne $md5sum_trnasequences)
@@ -176,7 +176,7 @@ sub loadLookupTable
       exit (1);
    }
 
-   $md5check = <$ifh>; 
+   $md5check = <$ifh>;
    chomp $md5check;
    if (substr ($md5check, 0, 17) ne "#OTHERANNOTATIONS")
    {
@@ -195,12 +195,12 @@ sub loadLookupTable
 
    while (my $line = <$ifh>)
    {
-      chomp $line; 
+      chomp $line;
       my @splitline = split (/\t/, $line);
       my $fragseq = $splitline[0];
 
       # Note: a Y in col2 means the tRF sequence is exclusive to tRNA space and a N means it's not exclusive
-      if ($splitline[1] eq "Y") 
+      if ($splitline[1] eq "Y")
       {
          $hash_exclusive->{$splitline[0]} = 0;
       }
@@ -228,7 +228,7 @@ sub loadtRNAfasta
    while (my $line = <$ifh>)
    {
       # read header from fasta file
-      chomp $line; 
+      chomp $line;
       if (!($line =~ m/^>/))
       {
          printf (STDERR "Error, exiting: Expected FASTA header but received %s\n", $line);
@@ -250,7 +250,7 @@ sub loadtRNAfasta
          printf (STDERR "Error, exiting: Only characters [ATCGN] allowed in FASTA sequence but received %s\n", $seq);
          exit (1);
       }
-      
+
       # add to hash
       $hash_tRNAseqs->{$trnaname} = $seq;
    }
@@ -275,7 +275,7 @@ sub loadOtherAnnotations
    close ($ifh);
 }
 
-sub getAnnotations 
+sub getAnnotations
 {
    my $trfseq                 = $_[0];
    my $hash_tRNAs             = $_[1];
@@ -319,7 +319,7 @@ sub getAnnotations
 
 # encode tRF sequences and store in output hash called MINTplates
 # e.g. java -cp ./MINTplates/ MINTcodes_tRF_license_plates -e MINTplates/example_sequences_to_encode.txt
-sub generatesPlates 
+sub generatesPlates
 {
    my $allexpressed_tRFs = $_[0];
    my $outputplates_hash = $_[1];
@@ -327,7 +327,7 @@ sub generatesPlates
    my $host = hostname;
    my $hostprefix="$$\_$host"; # set prefix to unique host and pid incase process is ran multiple times on same machine
    open my $ofh, ">tmp.mintmap.seqstoencode.$hostprefix.txt" or die $!;
-   foreach my $mykey (keys %{$allexpressed_tRFs}) 
+   foreach my $mykey (keys %{$allexpressed_tRFs})
    {
       chomp $mykey;
       printf ($ofh "%s\n", $mykey);
@@ -366,21 +366,21 @@ sub createOutput
    my $filename = "";
 
    # output the tRFs in decreasing order of expression (double counting is not a problem because we are dealing with the raw reads)
-   $filename = "$opt{p}-$scriptversion-$tRFtypes.expression.txt";
+   $filename = "$opt{p}_$scriptversion-$tRFtypes.expression.txt";
    printf ("Creating output file: %s\n", $filename);
    open my $ofh, ">$filename" or die $!;
-   $filename = "$opt{p}-$scriptversion-$tRFtypes.expression.html";
+   $filename = "$opt{p}_$scriptversion-$tRFtypes.expression.html";
    printf ("Creating output file: %s\n", $filename);
    open my $ofh_html, ">$filename" or die $!;
    printf ($ofh "MINTbase Unique ID\ttRF sequence\ttRF type(s)\tUnnormalized read counts\tRPM read counts (using all counts from this file[%d] in denominator)\tRPM read counts (using read count of input file from -f parameter[%d] in denominator)\tRPM read counts (using read count from optional -d parameter[%s] in denominator)\tSequence locations in tRNA space (comma deliminated)\n", $total_frags_in_file, $stat_totalstartingreads, defined ($opt{d}) ? $opt{d} : "na" );
    printf ($ofh_html "<html><head><title>%s expression</title></head>", $tRFtypes);
    printf ($ofh_html '<style> tr:nth-of-type(odd) { background-color:#ccc; } body { font-size: 18px; } table { font-size: 16px; } </style>');
-   
+
    printf ($ofh_html '<body><p style="font-size:22px; display:inline">Table of %s for %s</p>', $tRFtypes, $opt{a});
    printf ($ofh_html '<br />Created by the <a target="_blank" href="http://cm.jefferson.edu">Computational Medicine Center</a> at <a target="_blank" href="http://www.jefferson.edu/">Thomas Jefferson University</a> using the MINTmap tool located <a target="_blank" href="http://cm.jefferson.edu/MINTcodes/">here</a>.<br />Please cite: Loher, P. <i>et al.</i> MINTmap: fast and exhaustive profiling of nuclear and mitochondrial tRNA fragments from short RNA-seq data. <i>Sci. Rep.</i> 7, 41184; doi: 10.1038/srep41184 (2017).');
    printf ($ofh_html '<br /><br /><table style="width=100%%"><tr><td><b>MINTbase Unique ID</b><br />(sequence derived)</td><td><b>tRF sequence</b></td><td><b>tRF type(s)</b></td><td><center><b>Unnormalized<br />read counts</b></center></td><td><center><b>RPM read counts (using all counts from this file[%d] in denominator)</b></center></td><td><center><b>RPM read counts (using read count of input file from -f parameter[%d] in denominator)</b></center></td><td><center><b>RPM read counts (using read count from optional -d parameter[%s] in denominator)</b></center></td><td><center><b>MINTbase Summary Record</b></center></td><td><center><b>Sequence locations in tRNA space<br />(comma deliminated)</b></td></center></tr>', $total_frags_in_file, $stat_totalstartingreads, defined ($opt{d}) ? $opt{d} : "na");
 
-   foreach my $mykey (sort { $read_hash->{$b} <=> $read_hash->{$a} or $a cmp $b } keys %{$read_hash}) 
+   foreach my $mykey (sort { $read_hash->{$b} <=> $read_hash->{$a} or $a cmp $b } keys %{$read_hash})
    {
       if ($read_hash->{$mykey} != 0) # don't print things with 0 expression
       {
@@ -392,8 +392,8 @@ sub createOutput
          if (defined $opt{d})
          {
             $rpm_3 = sprintf ("%.2f", (($unnorm_numreads/$opt{d})*1000000));
-         } 
-      
+         }
+
          my $otherannotations = 'na';
          if ($using_otherannotations == 1)
          {
@@ -402,7 +402,7 @@ sub createOutput
 
          printf ($ofh "%s\t%s\t%s\t%d\t%.2f\t%.2f\t%s\t%s\n", $mintplates_hash->{$mykey}, $mykey, $otherannotations, $unnorm_numreads, $rpm_1, $rpm_2, $rpm_3, $annotations);
          my $mintbase_html = sprintf ('<a target="_blank" href="https://cm.jefferson.edu/MINTbase/InputController?g=%s&v=s&fs=%s">Summary</a>', $opt{a}, $mykey);
-         
+
          printf ($ofh_html '<tr><td>%s</td><td>%s</td><td>%s</td><td>%d</td><td>%.2f</td><td>%.2f</td><td>%s</td><td>%s</td><td>%s</td></tr>', $mintplates_hash->{$mykey}, $mykey, $otherannotations, $unnorm_numreads, $rpm_1, $rpm_2, $rpm_3, $mintbase_html, $annotations);
       }
    }
@@ -450,7 +450,12 @@ loadLookupTable (\%fastfrag_exclusive, \%fastfrag_notexclusive);
 printf ("Reading in fastq file\n");
 my $stat_totalfragmentreads_exclusive = 0;
 my $stat_totalfragmentreads_notexclusive = 0;
-open my $ifh, "$openFastqString" or die $!;
+my $ifh;
+if ( $openFastqString =~ m/.gz/ ) {
+    open $ifh, "zcat $fname |" or die $!;
+}else {
+    open my $ifh, "$openFastqString" or die $!;
+}
 while (defined (my $line_header = <$ifh>) && defined (my $line_seq = <$ifh>) && defined (my $line_misc = <$ifh>) && defined (my $line_phred = <$ifh>))
 {
    chomp $line_seq;
