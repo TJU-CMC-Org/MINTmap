@@ -414,6 +414,7 @@ sub createOutput
    printf ("Creating output file: %s\n", $filename);
    open $ofh, ">$filename" or die $!;
    printf ($ofh "Total reads in -f input file\tTotal unnormalized reads in %s\tPercent\n", $tRFtypes, $tRFtypes);
+   $stat_totalstartingreads ||=1;
    printf ($ofh "%ld\t%ld\t%.2f%%\n", $stat_totalstartingreads, $total_frags_in_file, ($total_frags_in_file / $stat_totalstartingreads) * 100);
    close ($ofh);
 }
@@ -451,11 +452,9 @@ printf ("Reading in fastq file\n");
 my $stat_totalfragmentreads_exclusive = 0;
 my $stat_totalfragmentreads_notexclusive = 0;
 my $ifh;
-if ( $openFastqString =~ m/.gz/ ) {
-    open $ifh, "zcat $fname |" or die $!;
-}else {
-    open my $ifh, "$openFastqString" or die $!;
-}
+
+open my $ifh, "$openFastqString" or die $!;
+
 while (defined (my $line_header = <$ifh>) && defined (my $line_seq = <$ifh>) && defined (my $line_misc = <$ifh>) && defined (my $line_phred = <$ifh>))
 {
    chomp $line_seq;
