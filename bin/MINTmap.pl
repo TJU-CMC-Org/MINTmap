@@ -3,13 +3,14 @@ use strict;
 use warnings;
 use Digest::MD5 qw (md5_hex);
 use Sys::Hostname;
+use File::ShareDir;
 
 my $scriptversion = "MINTmap_v1";
 
 # config settings
-my $DEFAULT_LOOKUPTABLE="LookupTable.tRFs.MINTmap_v1.txt";
-my $DEFAULT_TRNASPLICEDSEQUENCES="tRNAspace.Spliced.Sequences.MINTmap_v1.fa"; # used for annotationing where the tRF may come from
-my $DEFAULT_OTHERANNOTATIONS="OtherAnnotations.MINTmap_v1.txt"; # used for annotating the tRF-type
+my $DEFAULT_LOOKUPTABLE= File::ShareDir::dist_file('MINTmap', "LookupTable.tRFs.MINTmap_v1.txt");
+my $DEFAULT_TRNASPLICEDSEQUENCES= File::ShareDir::dist_file('MINTmap', "tRNAspace.Spliced.Sequences.MINTmap_v1.fa"); # used for annotationing where the tRF may come from
+my $DEFAULT_OTHERANNOTATIONS= File::ShareDir::dist_file('MINTmap', "OtherAnnotations.MINTmap_v1.txt"); # used for annotating the tRF-type
 my $DEFAULT_OUTPREFIX="output"; # output prefix to use if not it's not specified as a command line argument
 my $ASSEMBLY_MINTBASE="GRCh37"; # assembly version that MINTbase uses
 my $PATH_MINTPLATES="MINTplates/";
@@ -413,9 +414,9 @@ sub createOutput
    $filename = "$opt{p}-$scriptversion-$tRFtypes.countsmeta.txt";
    printf ("Creating output file: %s\n", $filename);
    open $ofh, ">$filename" or die $!;
-   printf ($ofh "Total reads in -f input file\tTotal unnormalized reads in %s\tPercent\n", $tRFtypes, $tRFtypes);
+   printf $ofh "Total reads in -f input file\tTotal unnormalized reads in %s\tPercent\n", $tRFtypes, $tRFtypes;
    $stat_totalstartingreads ||=1;
-   printf ($ofh "%ld\t%ld\t%.2f%%\n", $stat_totalstartingreads, $total_frags_in_file, ($total_frags_in_file / $stat_totalstartingreads) * 100);
+   printf $ofh "%ld\t%ld\t%.2f%%\n", $stat_totalstartingreads, $total_frags_in_file, ($total_frags_in_file / $stat_totalstartingreads) * 100;
    close ($ofh);
 }
 
@@ -451,7 +452,6 @@ loadLookupTable (\%fastfrag_exclusive, \%fastfrag_notexclusive);
 printf ("Reading in fastq file\n");
 my $stat_totalfragmentreads_exclusive = 0;
 my $stat_totalfragmentreads_notexclusive = 0;
-my $ifh;
 
 open my $ifh, "$openFastqString" or die $!;
 
