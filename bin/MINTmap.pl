@@ -13,7 +13,7 @@ my $DEFAULT_TRNASPLICEDSEQUENCES= File::ShareDir::dist_file('MINTmap', "tRNAspac
 my $DEFAULT_OTHERANNOTATIONS= File::ShareDir::dist_file('MINTmap', "OtherAnnotations.MINTmap_v1.txt"); # used for annotating the tRF-type
 my $DEFAULT_OUTPREFIX="output"; # output prefix to use if not it's not specified as a command line argument
 my $ASSEMBLY_MINTBASE="GRCh37"; # assembly version that MINTbase uses
-my $PATH_MINTPLATES="MINTplates/";
+my $PATH_MINTPLATES=File::ShareDir::dist_dir('MINTmap')."/MINTplates/";
 
 # globals
 my %opt;
@@ -63,6 +63,8 @@ Unless specified, this argument is automatically set to '$PATH_MINTPLATES'.  The
 
 -z Don't add any post-modifications when searching the tRNA annotations file (rarely needed)
 
+-F Use the experimental version of the default database including putative full length fragments
+
 -h
 This is an optional argument that shows the user a list of the various parameters.
 
@@ -79,7 +81,7 @@ EOF
 sub checkArguments
 {
    use Getopt::Std;
-   my $opt_string = 'f:p:l:s:o:d:a:j:hz';
+   my $opt_string = 'F:f:p:l:s:o:d:a:j:hz';
    getopts ("$opt_string", \%opt) or usage ();
 
    # hookup help parameter and enforce required variables
@@ -92,7 +94,9 @@ sub checkArguments
    {
       printf ("Flag -z detected, not expanding tRNA-annotations file with post-modifications\n");
    }
-
+   if ( ! defined $opt{F} ) {
+      $opt{F} = 0;
+   }
    # set optional fields to default values if not specified
    if (!(defined $opt{p}))
    {
