@@ -1,1 +1,1 @@
-perl /home/stefanl/git/MINTmap/bin/SEQ_2_LookupTable.pl -infile 'tRNAspace.Spliced.Sequences.MINTmap_v1.fa' -min_length '52' -outfile 'FullLength_add_on'
+perl /projects/bmc-scc/user/common/software/StefansPerl/1.0.0/bin/SEQ_2_LookupTable.pl -infile 'tRNAspace.Spliced.Sequences.MINTmap_v1.fa' -min_length '52' -outfile 'FullLength_add_on'

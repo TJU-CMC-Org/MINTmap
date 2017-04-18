@@ -143,7 +143,12 @@ foreach ( &cut_to( $min_length, \@data ) ) {
 	foreach my $str ( @$_ ) {
 		$i ++;
 		print $LOOKUP "$str\tY\n";
-		print $OtherAnnotations "$str\tfl-tRF-".length($_)."\n";
+		if ( $data->{$str} ) {
+			print $OtherAnnotations "$str\tfl-tRF\n";
+		}else {
+			print $OtherAnnotations "$str\tfl-tRF-".length($str)."\n";
+		}
+		
 	}
 }
 
