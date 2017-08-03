@@ -11,6 +11,7 @@ my $DEFAULT_LOOKUPTABLE="LookupTable.tRFs.MINTmap_v1.txt";
 my $DEFAULT_TRNASPLICEDSEQUENCES="tRNAspace.Spliced.Sequences.MINTmap_v1.fa"; # used for annotationing where the tRF may come from
 my $DEFAULT_OTHERANNOTATIONS="OtherAnnotations.MINTmap_v1.txt"; # used for annotating the tRF-type
 my $DEFAULT_OUTPREFIX="output"; # output prefix to use if not it's not specified as a command line argument
+my $DEFAULT_FRAGMENTTYPE="tRF";
 my $ASSEMBLY_MINTBASE="GRCh37"; # assembly version that MINTbase uses
 my $PATH_MINTPLATES="MINTplates/";
 
@@ -60,7 +61,11 @@ Unless specified, this argument is automatically set to '$ASSEMBLY_MINTBASE'. Th
 -j MINTplatesPath
 Unless specified, this argument is automatically set to '$PATH_MINTPLATES'.  The value of “MINTplatesPath“ refers to the path of the included MINTplates program which generates assembly-independent identifers for tRF sequences.
 
--z Don't add any post-modifications when searching the tRNA annotations file (rarely needed)
+-z No post-modification
+When this flag is used, do not pass any post-modifications when searching the tRNA annotations file (rarely needed)
+
+-t fragment type
+This is an optional argument. Unless specified, this argument will be set automatically to '$DEFAULT_FRAGMENTTYPE'.
 
 -h 
 This is an optional argument that shows the user a list of the various parameters.
@@ -78,7 +83,7 @@ EOF
 sub checkArguments
 {
    use Getopt::Std;
-   my $opt_string = 'f:p:l:s:o:d:a:j:hz';
+   my $opt_string = 'f:p:l:s:o:d:a:j:t:hz';
    getopts ("$opt_string", \%opt) or usage ();
 
    # hookup help parameter and enforce required variables
@@ -116,6 +121,10 @@ sub checkArguments
    if (!(defined $opt{j}))
    {
       $opt{j} = $PATH_MINTPLATES;
+   }
+   if (!(defined $opt{t}))
+   {
+      $opt{t} = $DEFAULT_FRAGMENTTYPE;
    }
 
    # error check if files exist
@@ -345,6 +354,11 @@ sub generatesPlates
       {
          chomp $line;
          my @splitline = split (/\t/, $line);
+
+         if ($opt{t} ne "tRF") # if fragment is not a tRF, rename the MINTplate prefix
+         {
+            $splitline[1] =~ s/^tRF/$opt{t}/;
+         }
          $outputplates_hash->{$splitline[0]} = $splitline[1];
       }
    }
@@ -401,8 +415,11 @@ sub createOutput
          }
 
          printf ($ofh "%s\t%s\t%s\t%d\t%.2f\t%.2f\t%s\t%s\n", $mintplates_hash->{$mykey}, $mykey, $otherannotations, $unnorm_numreads, $rpm_1, $rpm_2, $rpm_3, $annotations);
-         my $mintbase_html = sprintf ('<a target="_blank" href="https://cm.jefferson.edu/MINTbase/InputController?g=%s&v=s&fs=%s">Summary</a>', $opt{a}, $mykey);
-         
+         my $mintbase_html = "na";
+         if ($opt{t} eq "tRF")
+         {
+            $mintbase_html = sprintf ('<a target="_blank" href="https://cm.jefferson.edu/MINTbase/InputController?g=%s&v=s&fs=%s">Summary</a>', $opt{a}, $mykey);
+         }
          printf ($ofh_html '<tr><td>%s</td><td>%s</td><td>%s</td><td>%d</td><td>%.2f</td><td>%.2f</td><td>%s</td><td>%s</td><td>%s</td></tr>', $mintplates_hash->{$mykey}, $mykey, $otherannotations, $unnorm_numreads, $rpm_1, $rpm_2, $rpm_3, $mintbase_html, $annotations);
       }
    }
@@ -518,5 +535,5 @@ generatesPlates (\%fastfrag_tRNAannotations, \%MINTplates);
 
 # create output files for both the exclusive and non-exclusive tRFs
 printf ("Generating output:\n");
-createOutput (\%fastfrag_exclusive, \%fastfrag_tRNAannotations, \%trfannotations, \%MINTplates, $stat_totalfragmentreads_exclusive, "exclusive-tRFs");
-createOutput (\%fastfrag_notexclusive, \%fastfrag_tRNAannotations, \%trfannotations, \%MINTplates, $stat_totalfragmentreads_notexclusive, "ambiguous-tRFs");
+createOutput (\%fastfrag_exclusive, \%fastfrag_tRNAannotations, \%trfannotations, \%MINTplates, $stat_totalfragmentreads_exclusive, "exclusive-$opt{t}s");
+createOutput (\%fastfrag_notexclusive, \%fastfrag_tRNAannotations, \%trfannotations, \%MINTplates, $stat_totalfragmentreads_notexclusive, "ambiguous-$opt{t}s");
