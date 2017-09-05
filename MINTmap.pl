@@ -430,7 +430,7 @@ sub createOutput
    $filename = "$opt{p}-$scriptversion-$tRFtypes.countsmeta.txt";
    printf ("Creating output file: %s\n", $filename);
    open $ofh, ">$filename" or die $!;
-   printf ($ofh "Total reads in -f input file\tTotal unnormalized reads in %s\tPercent\n", $tRFtypes, $tRFtypes);
+   printf ($ofh "Total reads in -f input file\tTotal unnormalized reads in %s\tPercent\n", $tRFtypes);
    printf ($ofh "%ld\t%ld\t%.2f%%\n", $stat_totalstartingreads, $total_frags_in_file, ($total_frags_in_file / $stat_totalstartingreads) * 100);
    close ($ofh);
 }
