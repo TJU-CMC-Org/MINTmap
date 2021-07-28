@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "MINTmap"
+version = "2.0.0-alpha"
+description = "MINTmap generates tRF (tRNA fragment) profiles from a trimmed short RNA-Seq dataset."
+authors = ["Panayiotis Vlantis <pxv032@jefferson.edu>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+PyYAML = "^5.3.1"
+Jinja2 = "^2.11.2"
+
+[tool.poetry.scripts]
+MINTmap = 'mintmap.__main__:run'
+
+[tool.poetry.dev-dependencies]
+Sphinx = "^3.3.0"
+coverage = "^5.3"
+expects = "^0.9.0"
+flake8 = "^3.8.4"
+mamba = "^0.11.1"
+sphinx-rtd-theme = "^0.5.0"
+yapf = "^0.30.0"
+yamllint = "^1.25.0"
+isort = "^5.7.0"
+
+[tool.isort]
+src_paths = ["src", "spec"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

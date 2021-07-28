@@ -1,0 +1,15 @@
+# Linguist
+# https://github.com/github/linguist#overrides
+*.html -linguist-detectable
+
+# End of line
+# https://git-scm.com/docs/gitattributes#_end_of_line_conversion
+* text=auto
+
+# Language aware diff
+# https://git-scm.com/docs/gitattributes#_defining_a_custom_hunk_header
+*.html     diff=html
+*.html.j2  diff=html
+*.md       diff=markdown
+*.py       diff=python
+README.txt diff=markdown

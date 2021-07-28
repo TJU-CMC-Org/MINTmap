@@ -1,0 +1,32 @@
+[flake8]
+import-order-style=google
+
+max-line-length = 80
+
+ignore =
+  # E265 Block comment should start with '# '
+  E265,
+  # E402 Module level import not at top of file
+  #E402,
+  # E502 The backslash is redundant between brackets
+  E502,
+  # E741, Do not use variables named 'l', 'o', or 'i'
+  E741,
+  # F403,'from module import *' used; unable to detect undefined names
+  F403,
+  # Name may be undefined, or defined from star imports: module
+  F405,
+  # W503 Line break occurred before a binary operator
+  W503,
+  # W504 Line break occurred after a binary operator
+  W504,
+
+exclude =
+  .git,
+  __pycache__,
+  bin,
+  config,
+  data,
+  docs,
+  tmp,
+

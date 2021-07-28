@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>{{ fragment_type }}-tRFs expression</title></head>
+    <style>
+      tr:nth-of-type(odd) { background-color:#ccc; }
+      body { font-size: 1.0em; font-family: Helvetica,sans-serif; }
+      table { font-size: 1.0em; }
+      h1 { font-size: 1.2em; font-weight: normal; }
+      th { padding: 5px; }
+      a:link { text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <h1>
+      MINTmap profile of {{ fragment_type }}-tRFs for {{ assembly }}
+      (Program version: <span style="font-family: monospace">{{ version }}</span>,
+      Mapping bundle version: <span style="font-family: monospace">{{ mapping_bundle_version }}</span>)
+    </h1>
+    
+    <p>
+      Created by the
+      <a target="_blank" href="http://cm.jefferson.edu">Computational
+      Medicine Center</a>
+      at
+      <a target="_blank" href="http://www.jefferson.edu/">Thomas
+      Jefferson University</a>
+      using the MINTmap tool located
+      <a target="_blank" href="http://cm.jefferson.edu/MINTmap/">
+      here</a>.<br />
+      Please cite: Loher, P. <i>et al.</i>
+      MINTmap: fast and exhaustive profiling of nuclear and
+      mitochondrial tRNA fragments from short RNA-seq data.
+      <i>Sci. Rep.</i> 7, 41184; doi: 10.1038/srep41184 (2017).
+      <br />
+    </p>
+
+    <p>
+      Arguments used:
+      <span style="font-family: monospace;">
+        {{ used_arguments_str }}
+      </span>
+      <br/>
+      RPM* - Using [{{ reads_count }}] as denominator - total number of reads in this output file
+      <br/>
+      RPM** - Using [{{ all_reads_count }}] as denominator - total number of reads in FASTQ file
+      <br/>
+      RPM*** - Using [{{ custom_rpm }}] as denominator - custom denominator passed in with -c parameter.
+      <br/>
+      output generated at:
+      <span style="font-family: monospace">
+        {{ execution_timestamp_str }}
+      </span>
+    </p>
+
+    <table style="width:100%;">
+      <tr>
+        <th>License Plate<br /><span style="font-weight:normal;">(sequence derived)</span></th>
+        <th>tRF sequence</th>
+        <th>tRF type(s)</th>
+        <th>Unnormalized<br />read counts</th>
+        <th>RPM*</th>
+        <th>RPM**</th>
+        <th>RPM***</th>
+        <th>MINTbase Summary Record</th><th>Sequence locations in tRNA space<br />(comma delimited)</th>
+      </tr>
+      <!-- data trs -->
+

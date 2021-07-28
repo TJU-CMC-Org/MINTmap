@@ -1,0 +1,49 @@
+#!/usr/bin/sh
+#
+# pre-commit.
+
+# colors
+yellow="\e[33m"
+red="\e[31m"
+blue="\e[34m"
+reset="\e[0m"
+
+# Ensure that code that isn’t part of the prospective commit isn’t tested
+# within your pre-commit script.
+stash_name="pre-commit-$(date +%s)"
+git stash save -q --keep-index $stash_name
+
+make --silent lint
+lint_result=$?
+if [ $lint_result -eq 0 ]; then
+  echo -e " 🍏 ${blue}lint succeeded${reset}"
+else
+  echo -e " 🎃 ${red}lint failed${reset}"
+fi
+
+make --silent spec mamba_flags=''
+spec_result=$?
+if [ $spec_result -eq 0 ]; then
+  echo -e " 🍏 ${blue}spec suite succeeded${reset}"
+else
+  echo -e " 🎃 ${red}spec suite failed${reset}"
+fi
+
+make --silent format yapf_flags='--quiet --recursive'
+format_result=$?
+if [ $format_result -eq 0 ]; then
+  echo -e " 🍏 ${blue}code format succeeded${reset}"
+else
+  echo -e " 🎃 ${red}code format failed${reset}"
+fi
+
+git stash pop -q
+
+if [ $lint_result -eq 0 ] &&
+  [ $spec_result -eq 0 ] &&
+  [ $format_result -eq 0 ]; then
+  echo -e " 🍏 ${blue}pre-commit hook succeeded${reset}"
+else
+  echo -e " 🎃 ${red}pre-commit hook failed${reset}"
+  exit 1
+fi
