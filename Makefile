@@ -26,10 +26,10 @@ spec:
 	poetry run mamba ${mamba_flags}
 
 zip_release:
-	rm -rf dist/* tmp/MINTmap
+	rm -rf dist/* tmp/MINTmap-v2-alpha
 	poetry build --format wheel
-	mkdir -p tmp/MINTmap/dist
-	cp -r README.txt ExampleRun tmp/MINTmap
-	cp dist/*.whl tmp/MINTmap/dist/
-	cd tmp && zip -r ../dist/MINTmap-v2.0-alpha.zip MINTmap
+	mkdir -p tmp/MINTmap-v2-alpha/dist
+	cp -r README.txt ExampleRun tmp/MINTmap-v2-alpha
+	cp dist/*.whl tmp/MINTmap-v2-alpha/dist/
+	cd tmp && zip -r ../dist/MINTmap-v2.0-alpha.zip MINTmap-v2-alpha
 	zipinfo dist/MINTmap-v2.0-alpha.zip

@@ -1,7 +1,9 @@
 # MINTmap
 
-To download the MINTmap tool, please visit
-[cm.jefferson.edu/MINTmap](https://cm.jefferson.edu/MINTmap).
+This version of MINTmap (version 2.0-alpha) is not yet fully tested as v2.0 is
+still in active development.
+Please visit [cm.jefferson.edu/MINTmap](https://cm.jefferson.edu/MINTmap)
+for more details on accessing the various versions.
 
 MINTmap generates tRF (tRNA fragment) profiles from a trimmed short RNA-Seq
 dataset. A *trimmed* short RNA-Seq dataset, includes sequencer reads from a core
@@ -29,8 +31,6 @@ You can contact us at
 
 MINTmap is available under the open source GNU GPL v3.0 license
 (https://www.gnu.org/licenses/gpl-3.0.en.html).  
-Included MINTplates library uses a different license, for more information see
-the README file within the downloadable bundle.
 
 
 ## Publications
@@ -67,6 +67,8 @@ Anaconda Installer:
 ```
     bash ~/Downloads/Anaconda3-2020.11-Linux-x86_64.sh
 ```
+Note that your downloaded Anaconda script might have a slightly different
+filename.
 2. When the installer prompts:
 *Do you wish the installer to initialize Anaconda3 by running conda init?*,
 press yes.
@@ -171,5 +173,5 @@ HTML file also links to verbose MINTbase records.
 (\*.ambiguous-tRFs.expression.\*).  
 RPM and annotation information included.  
 HTML file also links to verbose MINTbase records.
-* High level mapping stats are also generated seperately for exclusive and
+* High level mapping stats are also generated separately for exclusive and
 non-exclusive tRFs (\*.countsmeta.txt)
