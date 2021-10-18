@@ -30,7 +30,7 @@ You can contact us at
 ## License
 
 MINTmap is available under the open source GNU GPL v3.0 license
-(https://www.gnu.org/licenses/gpl-3.0.en.html).  
+(https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 
 ## Publications
@@ -69,6 +69,7 @@ Anaconda Installer:
 ```
 Note that your downloaded Anaconda script might have a slightly different
 filename.
+
 2. When the installer prompts:
 *Do you wish the installer to initialize Anaconda3 by running conda init?*,
 press yes.

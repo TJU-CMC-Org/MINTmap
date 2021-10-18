@@ -25,11 +25,12 @@ mamba_flags = --format=documentation --enable-coverage
 spec:
 	poetry run mamba ${mamba_flags}
 
+zip_release_name = MINTmap-v2.0-alpha
 zip_release:
-	rm -rf dist/* tmp/MINTmap-v2-alpha
+	rm -rf dist/* tmp/${zip_release_name}
 	poetry build --format wheel
-	mkdir -p tmp/MINTmap-v2-alpha/dist
-	cp -r README.txt ExampleRun tmp/MINTmap-v2-alpha
-	cp dist/*.whl tmp/MINTmap-v2-alpha/dist/
-	cd tmp && zip -r ../dist/MINTmap-v2.0-alpha.zip MINTmap-v2-alpha
-	zipinfo dist/MINTmap-v2.0-alpha.zip
+	mkdir -p tmp/${zip_release_name}/dist
+	cp -r README.txt ExampleRun tmp/${zip_release_name}
+	cp dist/*.whl tmp/${zip_release_name}/dist/
+	cd tmp && zip -r ../dist/${zip_release_name}.zip ${zip_release_name}
+	zipinfo dist/${zip_release_name}.zip

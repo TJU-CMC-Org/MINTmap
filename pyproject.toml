@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "MINTmap"
-version = "2.0.0-alpha"
+version = "v2.0-alpha"
 description = "MINTmap generates tRF (tRNA fragment) profiles from a trimmed short RNA-Seq dataset."
 authors = ["Panayiotis Vlantis <pxv032@jefferson.edu>"]
 

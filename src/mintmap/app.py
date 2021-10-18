@@ -46,7 +46,8 @@ class App(metaclass=AppMetaClass):
         )
 
         description = (
-            'MINTmap generates tRF (tRNA fragment) profiles '
+            f"MINTmap {__version__}"
+            ' generates tRF (tRNA fragment) profiles '
             'from a trimmed short RNA-Seq dataset.'
         )
 
@@ -128,6 +129,12 @@ class App(metaclass=AppMetaClass):
                      'critical'],
             metavar='{debug,info,warning}',  # show less options for readability
             help="Set the logging level. The default is info.",
+        )
+
+        parser.add_argument(
+            '--version',
+            action='version',
+            version=__version__,
         )
 
         arguments = parser.parse_args()

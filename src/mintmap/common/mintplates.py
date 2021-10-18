@@ -4,7 +4,7 @@
 # yapf: disable
 
 """
-MINTplates.py: Terms and conditions located in README_TermsOfUse_MINTplates.txt
+MINTplates.py: Terms and conditions located in https://github.com/TJU-CMC-Org/MINTplates
 
 This code was created by Venetia Pliatsika, Isidore Rigoutsos, Jeffery Ma, Phillipe Loher
 It can be used to create/encode molecular "license-plates" from sequences and to also decode the "license-plates"
