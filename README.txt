@@ -1,23 +1,35 @@
-MINTmap
--------
 
-This version of MINTmap (version 2.0-alpha) is not yet fully tested as v2.0 is
-still in active development.
-Please visit (https://cm.jefferson.edu/MINTmap) for more details on accessing
-the various versions.
+1. MINTmap
+----------
 
-MINTmap generates tRF (tRNA fragment) profiles from a trimmed short RNA-Seq
-dataset. A *trimmed* short RNA-Seq dataset, includes sequencer reads from a core
-sequencing facility in which any ligated adaptors have already been removed.
-Reads must already have adaptors removed prior to calling MINTmap.
+In response to many requests, we are making available a stable, pre-release
+version of MINTmap version 2.0-alpha. (MINTmap v2.0 is currently in active
+development).
 
-Note: Color-space reads are not supported in this tool.
-For information on methods and color-space, please see
-this paper (http://www.nature.com/articles/srep41184).
+For the latest version of the code, including previous releases, visit
+(https://cm.jefferson.edu/MINTmap/).
 
-MINTmap is developed and maintained by the
-Computational Medicine Center (https://cm.jefferson.edu),
-Thomas Jefferson University.
+MINTmap identifies and quantifies tRNA-derived fragments (tRFs) directly from a
+*trimmed* short RNA-Seq dataset (fastq file). (Note: in a trimmed fastq file,
+the listed sequenced reads have already had their sequencing adaptors removed.)
+
+NOTES:
+------
+
+- MINTmap does *not* yet operate on fastq files where the reads still contain
+  adaptor fragments.
+
+- Files containing color-space reads cannot be processed by this tool.
+  For information on how to extend the tool to color-space, see
+  MINTmap: fast and exhaustive profiling of nuclear and mitochondrial tRNA
+  fragments from short RNA-seq data (https://pubmed.ncbi.nlm.nih.gov/28220888/).
+
+
+2. General information
+----------------------
+
+MINTmap is developed and maintained by the Computational Medicine Center
+(https://cm.jefferson.edu), Thomas Jefferson University.
 
 To cite MINTmap use:
   Loher, P. et al. MINTmap: fast and exhaustive profiling of
@@ -27,29 +39,25 @@ To cite MINTmap use:
 You can contact us at cmcadmins@jefferson.edu
 
 
-2. License
-----------
+3 License and Terms of Use
+--------------------------
 
-MINTmap is available under the open source GNU GPL v3.0 license
-(https://www.gnu.org/licenses/gpl-3.0.en.html).
+- If you use this tool, please cite:
+  Loher et al, "MINTmap: fast and exhaustive profiling of nuclear and
+  mitochondrial tRNA fragments from short RNA-seq data", *Sci Rep*, 2017
+  (https://pubmed.ncbi.nlm.nih.gov/28220888/)
 
+- MINTmap is available under the open source GNU GPL v3.0 license
+  (https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-3. Publications
----------------
-
-* Loher, P, Telonis, AG, Rigoutsos, I. MINTmap: fast and exhaustive profiling of
-  nuclear and mitochondrial tRNA fragments from short RNA-seq data.
-  Sci Rep. 2017;7 :41184.
-  doi: 10.1038/srep41184 (http://dx.doi.org/10.1038/srep41184).
-  PubMed PMID:28220888 (http://www.ncbi.nlm.nih.gov/pubmed/28220888).
-  PubMed Central PMC5318995 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC5318995).
-
-* Pliatsika, V, Loher, P, Telonis, AG, Rigoutsos, I. MINTbase: a framework for
-  the interactive exploration of mitochondrial and nuclear tRNA fragments.
-  Bioinformatics. 2016;32 (16):2481-9. doi: 10.1093/bioinformatics/btw194
-  (http://dx.doi.org/10.1093/bioinformatics/btw194).
-  PubMed PMID:27153631 (http://www.ncbi.nlm.nih.gov/pubmed/27153631).
-  PubMed Central PMC4978933 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4978933).
+- MINTmap uses the "license plate" scheme to generate unique and unambiguous
+  labels for tRFs. This labeling scheme was originally described in
+  MINTbase: a framework for the interactive exploration of mitochondrial and
+  nuclear tRNA fragments (https://pubmed.ncbi.nlm.nih.gov/27153631/),
+  and subsequently extended to rRNA-derived fragments (rRFs)
+  (https://pubmed.ncbi.nlm.nih.gov/32279660/)
+  and, more recently, to microRNA (miRNA) and miRNA isoforms (isomiRs)
+  (https://pubmed.ncbi.nlm.nih.gov/33471076/).
 
 
 4. Installation using Anaconda
@@ -86,7 +94,7 @@ https://cm.jefferson.edu/MINTmap and uncompress the downloaded file.
 
 Note: In macOS and linux open the Terminal application.
 In Windows, open the application *Anaconda Powershell Prompt (Anaconda3)*,
-which you can find in the *Start Menu*.  
+which you can find in the *Start Menu*.
 
 5. Inside the terminal, start a bash shell by running:
 
@@ -106,11 +114,11 @@ the project you are working on.
 
 8. Change directory to where you uncompressed MINTmap, e.g. run:
 
-    cd Downloads/MINTmap/
+    cd Downloads/MINTmap-v2.0-alpha/
 
 9. Install MINTmap inside the anaconda environment by running:
 
-    pip install dist/MINTmap-2.0.0a0-py3-none-any.whl
+    pip install dist/MINTmap-2.0a0-py3-none-any.whl
 
 
 5. Example Usage
@@ -141,7 +149,7 @@ which you can find in the *Start Menu*.
 
     cd ExampleRun
 
-6. 6. Generate tRF profiles using the example (included in MINTmap download) trimmed fastq file by running:
+6. Generate tRF profiles using the example (included in MINTmap download) trimmed fastq file by running:
 
     MINTmap exampleInput.trimmed.fastq.gz
 

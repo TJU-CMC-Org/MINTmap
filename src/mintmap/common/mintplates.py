@@ -4,13 +4,13 @@
 # yapf: disable
 
 """
-MINTplates.py: Terms and conditions located in https://github.com/TJU-CMC-Org/MINTplates
+MINTplates.py: Terms and conditions located in https://github.com/TJU-CMC-Org/MINTplates/
 
 This code was created by Venetia Pliatsika, Isidore Rigoutsos, Jeffery Ma, Phillipe Loher
 It can be used to create/encode molecular "license-plates" from sequences and to also decode the "license-plates"
 back to sequences.  While initially created for tRFs (tRNA fragments), this tool can be used for
 any genomic sequences including but not limited to:  tRFs, isomiRs, reference miRNA, etc.
-For more information on "license-plates", visit https://cm.jefferson.edu/MINTbase and
+For more information on "license-plates", visit https://cm.jefferson.edu/license-plates-download/ and
 refer to publications https://www.ncbi.nlm.nih.gov/pubmed/27153631/ and https://www.ncbi.nlm.nih.gov/pubmed/28220888/.
 Contact us at: https://cm.jefferson.edu/contact-us/
 """
